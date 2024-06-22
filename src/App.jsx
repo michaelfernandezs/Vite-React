@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import Header from './componentes/Header' 
 import Guitar from './componentes/guitar'
@@ -11,16 +9,26 @@ function App() {
 
 function addToCart(item){
 
-  const itemExists = cart.findIndex((guitar) => guitar.id===item.id)
-  console.log(itemExists)
-  setCart(prevCart=>[...prevCart, item])
+  const itemExists = cart.findIndex(guitar => guitar.id===item.id)
+  if(itemExists>=0){
+    console.log('ya existe... ')  
+    const updatedCart=[...cart]
+    updatedCart[itemExists].quantity++
+    setCart(updatedCart)
+  }else{
+    item.quantity=1
+    setCart(prevCart=>[...cart, item])
+  }
+
 
 }
 
 
   return (
     <>
-     <Header/>
+     <Header 
+     cart={cart}
+     />
     
 
     <main className="container-xl mt-5">
