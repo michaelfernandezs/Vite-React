@@ -2,7 +2,7 @@
 import React from "react"
 import { useMemo } from "react"
 import Guitar from "./guitar"
-export default function header({cart}){
+export default function header({cart,removeFromCart,increaseQuantity,decreaseQuantity}){
 
     //state derivao 
     const isEmpty=useMemo(()=>cart.length===0,[cart])
@@ -57,6 +57,8 @@ export default function header({cart}){
                                             <button
                                                 type="button"
                                                 className="btn btn-dark"
+                                                onClick={()=>decreaseQuantity(guitar.id)}
+                                                
                                             >
                                                 -
                                             </button>
@@ -64,6 +66,8 @@ export default function header({cart}){
                                             <button
                                                 type="button"
                                                 className="btn btn-dark"
+                                                onClick={()=>increaseQuantity(guitar.id)}
+                                          
                                             >
                                                 +
                                             </button>
@@ -72,6 +76,7 @@ export default function header({cart}){
                                             <button
                                                 className="btn btn-danger"
                                                 type="button"
+                                                onClick={()=>removeFromCart(guitar.id)}
                                             >
                                                 X
                                             </button>
