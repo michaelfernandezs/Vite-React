@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from './componentes/Header' 
 import Guitar from './componentes/guitar'
@@ -7,6 +7,10 @@ function App() {
   const [data,setData]=useState(db)
   const [cart,setCart]=useState([])
   const MAX_ITEMS=5
+
+  useEffect(()=>{
+    localStorage.setItem('cart',JSON.stringify(cart))
+  },)
   
 function addToCart(item){
 
@@ -20,7 +24,7 @@ function addToCart(item){
     item.quantity=1
     setCart(prevCart=>[...cart, item])
   }
-
+  saveLocalStorage()
 
 }
   function removeFromCart(id){
@@ -40,6 +44,7 @@ function increaseQuantity(id){
 }
 
 
+
 function decreaseQuantityQuantity(id){
   const updatedCart=cart.map(item=>{
     if(item.id===id && item.quantity>1){
@@ -54,6 +59,13 @@ function decreaseQuantityQuantity(id){
 }
 
 
+function clearCart(){
+  setCart([])
+}
+
+function saveLocalStorage(){
+  
+}
   return (
     <>
      <Header 
@@ -61,7 +73,7 @@ function decreaseQuantityQuantity(id){
      removeFromCart={removeFromCart}
      increaseQuantity={increaseQuantity}
      decreaseQuantity={decreaseQuantityQuantity}
-     
+     clearCart={clearCart}
 
      />
     
